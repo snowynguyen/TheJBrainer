@@ -12,6 +12,8 @@ namespace TheJBrainer
 {
     public partial class PairMatching : Form
     {
+        public List<PairMatching_QuestionPair> QuestionList;
+
         public PairMatching()
         {
             InitializeComponent();
@@ -20,6 +22,12 @@ namespace TheJBrainer
         private void PairMatching_Load(object sender, EventArgs e)
         {
             PlayBtn.Visible = true;
+            QuestionList.Clear();
+            for (int i=0; i<5; i++)
+            {
+                QuestionList.Add(new PairMatching_QuestionPair(20, PairMatching_Difficulty.EASY));
+                QuestionList.Add(new PairMatching_QuestionPair(20, PairMatching_Difficulty.HARD));
+            }
         }
 
         private void PlayBtn_Click(object sender, EventArgs e)
@@ -44,6 +52,8 @@ namespace TheJBrainer
 
     public static class Utilities
     {
+        public static Random rd = new Random();
+
         public static string GetBasicOperatorAsString(BasicOperator _operator)
         {
             switch (_operator)
@@ -110,9 +120,69 @@ namespace TheJBrainer
         PairMatching_Difficulty Difficulty;
         int CommonAnswer;
 
-        PairMatching_QuestionPair(int generation_range, PairMatching_Difficulty difficulty)
+        public PairMatching_QuestionPair(int generation_range, PairMatching_Difficulty difficulty)
         {
-
+            Difficulty = difficulty;
+            Question1.Operator = (BasicOperator)(Utilities.rd.Next(4) + 1);
+            switch (Question1.Operator)
+            {
+                case BasicOperator.PLUS:
+                    Question1.Operand1 = Utilities.rd.Next(1, generation_range);
+                    Question1.Operand2 = Utilities.rd.Next(1, generation_range);
+                    CommonAnswer = Question1.Operand1 + Question1.Operand2;
+                    break;
+                case BasicOperator.MINUS:
+                    Question1.Operand2 = Utilities.rd.Next(1, generation_range);
+                    CommonAnswer = Utilities.rd.Next(1, generation_range);
+                    Question1.Operand1 = Question1.Operand2 + CommonAnswer;
+                    break;
+                case BasicOperator.MULTIPLY:
+                    Question1.Operand1 = Utilities.rd.Next(1, generation_range);
+                    Question1.Operand2 = Utilities.rd.Next(1, generation_range);
+                    CommonAnswer = Question1.Operand1 * Question1.Operand2;
+                    break;
+                case BasicOperator.DIVIDE:
+                    Question1.Operand2 = Utilities.rd.Next(1, generation_range);
+                    CommonAnswer = Utilities.rd.Next(2, generation_range);
+                    Question1.Operand1 = Question1.Operand2 * CommonAnswer;
+                    break;
+                default:
+                    break;
+            }
+            Question2.Operator = (BasicOperator)(Utilities.rd.Next(4) + 1);
+            double chance = 0.06, seed = 0.0;
+            int i = 1;
+            switch (Question2.Operator)
+            {
+                case BasicOperator.PLUS:
+                    Question2.Operand1 = Utilities.rd.Next(0, Math.Min(generation_range, CommonAnswer));
+                    Question2.Operand2 = CommonAnswer - Question2.Operand1;
+                    break;
+                case BasicOperator.MINUS:
+                    Question2.Operand1 = Utilities.rd.Next(CommonAnswer, CommonAnswer + 2 * generation_range - 1);
+                    Question2.Operand2 = Question2.Operand1 - CommonAnswer;
+                    break;
+                case BasicOperator.MULTIPLY:
+                    while (true)
+                    {
+                        if (CommonAnswer % i != 0)
+                        {
+                            i++;
+                            continue;
+                        }
+                        seed = Utilities.rd.NextDouble();
+                        if (seed > chance) break;
+                        i++;
+                        chance = 1.0 - Math.Pow(1.0 - chance, Utilities.rd.NextDouble() + 1.0);
+                    }
+                    break;
+                case BasicOperator.DIVIDE:
+                    Question2.Operand2 = Utilities.rd.Next(1, generation_range);
+                    Question2.Operand1 = CommonAnswer * Question2.Operand2;
+                    break;
+                default:
+                    break;
+            }
         }
 
         
