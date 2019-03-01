@@ -12,22 +12,67 @@ namespace TheJBrainer
 {
     public partial class PairMatching : Form
     {
-        public List<PairMatching_QuestionPair> QuestionList;
+        public List<String> QuestionList;
+        public List<Button> QBtnList;
 
         public PairMatching()
         {
             InitializeComponent();
         }
 
+        private void Data_Initialization()
+        {
+            QuestionList.Clear();
+            List<String> tmp = new List<string>();
+            for (int i = 0; i < 10; i++)
+            {
+                tmp = (new PairMatching_QuestionPair(20, PairMatching_Difficulty.EASY)).GetQuestionPairasStrings();
+                foreach(string s in tmp)
+                {
+                    QuestionList.Add(s);
+                }
+            }
+            QBtnList.Clear();
+            List<int> Permute = RandomPermute(QuestionList.Count);
+            Button btn = new Button();
+            Point pt = new Point(0, 0);
+            int max_horizontal_size = (int)Math.Truncate(Math.Sqrt(QuestionList.Count));
+            for (int i = 0, currow = 0, curcol = 0; i < QuestionList.Count; i++, curcol++)
+            {
+                if (curcol >= max_horizontal_size)
+                {
+                    currow += curcol / max_horizontal_size;
+                    curcol %= max_horizontal_size;
+                }
+                btn.Tag = (i / 2) + 1;
+                btn.Text = QuestionList[Permute[i]];
+                btn.Size = new Size(Constants._pm_btnhsize, Constants._pm_btnvsize);
+                btn.Location = new Point(currow * (Constants._pm_btnhsize + Constants._pm_btnhgap), curcol * (Constants._pm_btnvsize + Constants._pm_btnvgap));
+            }
+        }
+
+        private List<int> RandomPermute(int n)
+        {
+            List<int> result = new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                result.Add(i);
+            }
+            int j = 0, tmp;
+            for (int i = n - 1; i >= 0; i--)
+            {
+                j = Utilities.rd.Next(i + 1);
+                tmp = result[i];
+                result[i] = result[j];
+                result[j] = tmp;
+            }
+            return result;
+        }
+
         private void PairMatching_Load(object sender, EventArgs e)
         {
             PlayBtn.Visible = true;
-            QuestionList.Clear();
-            for (int i=0; i<5; i++)
-            {
-                QuestionList.Add(new PairMatching_QuestionPair(20, PairMatching_Difficulty.EASY));
-                QuestionList.Add(new PairMatching_QuestionPair(20, PairMatching_Difficulty.HARD));
-            }
+            
         }
 
         private void PlayBtn_Click(object sender, EventArgs e)
@@ -50,10 +95,14 @@ namespace TheJBrainer
         DIVIDE = 4
     }
 
+    public static class Constants
+    {
+        public const int _pm_btnhsize = 100, _pm_btnvsize = 50, _pm_btnvgap = 15, _pm_btnhgap = 15;
+    }
+
     public static class Utilities
     {
         public static Random rd = new Random();
-
         public static string GetBasicOperatorAsString(BasicOperator _operator)
         {
             switch (_operator)
@@ -72,12 +121,12 @@ namespace TheJBrainer
         }
     }
 
-    public class PairMathcing_Question
+    public class PairMatching_Question
     {
         public int Operand1, Operand2;
         public BasicOperator Operator;
 
-        public PairMathcing_Question(int operand1, int operand2, BasicOperator _operator)
+        public PairMatching_Question(int operand1, int operand2, BasicOperator _operator)
         {
             Operand1 = operand1;
             Operand2 = operand2;
@@ -116,7 +165,7 @@ namespace TheJBrainer
 
     public class PairMatching_QuestionPair
     {
-        PairMathcing_Question Question1, Question2;
+        PairMatching_Question Question1, Question2;
         PairMatching_Difficulty Difficulty;
         int CommonAnswer;
 
@@ -185,8 +234,24 @@ namespace TheJBrainer
             }
         }
 
-        
+        public List<String> GetQuestionPairasStrings()
+        {
+            List<String> result = new List<string>();
+            result.Add(Question1.GetQuestionAsString());
+            switch (Difficulty)
+            {
+                case PairMatching_Difficulty.EASY:
+                    result.Add(Question1.GetAnswerAsString());
+                    break;
+                case PairMatching_Difficulty.HARD:
+                    result.Add(Question2.GetQuestionAsString());
+                    break;
+                default:
+                    break;
+            }
+            return result;
+        }
 
     }
-
+    
 }
