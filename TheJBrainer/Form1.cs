@@ -15,6 +15,12 @@ namespace TheJBrainer
         public Form1()
         {
             InitializeComponent();
+            PairMatching pm = new PairMatching();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

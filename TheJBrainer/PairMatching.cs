@@ -1,53 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TheJBrainer
 {
     public partial class PairMatching : Form
     {
-        public List<String> QuestionList;
-        public List<Button> QBtnList;
+        public List<String> QuestionList = new List<string>();
+        private List<int> AnswerList = new List<int>();
+        private int Hold_Count = 0, Score = 0, Lives = Constants._pm_lives;
+        private List<TagStruct> Holds = new List<TagStruct>();
 
         public PairMatching()
         {
             InitializeComponent();
+            this.ShowDialog();
         }
 
         private void Data_Initialization()
         {
+            GameplayPnl.Size = new Size(800, 480);
             QuestionList.Clear();
+            AnswerList.Clear();
             List<String> tmp = new List<string>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Constants._pm_gencnt; i++)
             {
-                tmp = (new PairMatching_QuestionPair(20, PairMatching_Difficulty.EASY)).GetQuestionPairasStrings();
+                PairMatching_QuestionPair ptmp = new PairMatching_QuestionPair(20, PairMatching_Difficulty.EASY);
+                tmp = ptmp.GetQuestionPairasStrings();
                 foreach(string s in tmp)
                 {
                     QuestionList.Add(s);
                 }
+                AnswerList.Add(ptmp.GetCommonAnswer);
+                AnswerList.Add(ptmp.GetCommonAnswer);
             }
-            QBtnList.Clear();
+            GameplayPnl.Controls.Clear();
             List<int> Permute = RandomPermute(QuestionList.Count);
-            Button btn = new Button();
             Point pt = new Point(0, 0);
-            int max_horizontal_size = (int)Math.Truncate(Math.Sqrt(QuestionList.Count));
+            int max_horizontal_count = (int)Math.Truncate(Math.Sqrt(QuestionList.Count));
+            int vertical_count = (int)Math.Ceiling(QuestionList.Count * 1.0 / max_horizontal_count);
+            Constants._pm_btnvsize = (GameplayPnl.Size.Height - ((max_horizontal_count - 1) * Constants._pm_btnvgap)) / max_horizontal_count - Constants._pm_btnhgap;
+            Constants._pm_btnhsize = (GameplayPnl.Size.Width - ((vertical_count - 1) * Constants._pm_btnvgap)) / vertical_count - Constants._pm_btnvgap;
             for (int i = 0, currow = 0, curcol = 0; i < QuestionList.Count; i++, curcol++)
             {
-                if (curcol >= max_horizontal_size)
+                Button btn = new Button();
+                if (curcol >= max_horizontal_count)
                 {
-                    currow += curcol / max_horizontal_size;
-                    curcol %= max_horizontal_size;
+                    currow += curcol / max_horizontal_count;
+                    curcol %= max_horizontal_count;
                 }
-                btn.Tag = (i / 2) + 1;
+                btn.Tag = new TagStruct(Permute[i], i, AnswerList[Permute[i]]);
                 btn.Text = QuestionList[Permute[i]];
                 btn.Size = new Size(Constants._pm_btnhsize, Constants._pm_btnvsize);
                 btn.Location = new Point(currow * (Constants._pm_btnhsize + Constants._pm_btnhgap), curcol * (Constants._pm_btnvsize + Constants._pm_btnvgap));
+                btn.BackColor = Color.LightGray;
+                btn.Click += MatchBtn_Click;
+                GameplayPnl.Controls.Add(btn);
             }
         }
 
@@ -77,7 +86,91 @@ namespace TheJBrainer
 
         private void PlayBtn_Click(object sender, EventArgs e)
         {
+            Data_Initialization();
+            PlayBtn.Visible = false;
+        }
 
+        private void MatchBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            TagStruct tag = (TagStruct)btn.Tag;
+            if (Hold_Count < Constants._pm_maxhold)
+            {
+                Hold_Count++;
+                Holds.Add(tag);
+                btn.BackColor = Color.LightYellow;
+            } 
+            if (Hold_Count >= Constants._pm_maxhold)
+            {
+                int res = Check();
+                switch (res)
+                {
+                    case 1:
+                        foreach(TagStruct h in Holds)
+                        {
+                            GameplayPnl.Controls[h.BIndex].BackColor = Color.LawnGreen;
+                            GameplayPnl.Controls[h.BIndex].Enabled = false;
+                        }
+                        Score += Constants._pm_base_score * Constants._pm_maxhold;
+                        break;
+                    default:
+                        foreach (TagStruct h in Holds)
+                        {
+                            GameplayPnl.Controls[h.BIndex].BackColor = Color.LightGray;
+                        }
+                        Lives--;
+                        break;
+                }
+                Holds.Clear();
+                Hold_Count = 0;
+                if (Lives <= 0)
+                {
+                    StopGame(-1);
+                }
+            }
+            StatusBarUpdate();
+        }
+
+        private void StatusBarUpdate()
+        {
+            ScoreLbl.Text = Score.ToString();
+            LivesLbl.Text = Lives.ToString();
+        }
+
+        private void PairMatching_SizeChanged(object sender, EventArgs e)
+        {
+            GameplayPnl.Size = new Size(this.Size.Width - 30, this.Size.Height - 80);
+        }
+
+        private void StopGame(int result)
+        {
+            GameplayPnl.Enabled = false;
+            switch (result)
+            {
+                case 1:
+                    MessageBox.Show("You win");
+                    break;
+                case -1:
+                    MessageBox.Show("You lose");
+                    break;
+                default:
+                    MessageBox.Show("Error 404");
+                    break;
+            }
+        }
+
+        private int Check()
+        {
+            if (Hold_Count == Constants._pm_maxhold)
+            {
+                int ans = Holds[0].Answer;
+                foreach (var h in Holds)
+                {
+                    if (ans != h.Answer) return 0;
+                }
+                return 1;
+            }
+            else return -1;
         }
     }
 
@@ -95,9 +188,31 @@ namespace TheJBrainer
         DIVIDE = 4
     }
 
+    public struct TagStruct
+    {
+        public int QIndex { get; set; }
+        public int BIndex { get; set; }
+        public int Answer { get; set; }
+
+        public TagStruct(int qindex, int bindex, int answer)
+        {
+            QIndex = qindex;
+            BIndex = bindex;
+            Answer = answer;
+        }
+    }
+
     public static class Constants
     {
-        public const int _pm_btnhsize = 100, _pm_btnvsize = 50, _pm_btnvgap = 15, _pm_btnhgap = 15;
+        public static int
+            _pm_btnhsize = 100,
+            _pm_btnvsize = 50,
+            _pm_btnvgap = 10,
+            _pm_btnhgap = 15,
+            _pm_gencnt = 10,
+            _pm_maxhold = 2,
+            _pm_lives = 5,
+            _pm_base_score = 5;
     }
 
     public static class Utilities
@@ -165,9 +280,10 @@ namespace TheJBrainer
 
     public class PairMatching_QuestionPair
     {
-        PairMatching_Question Question1, Question2;
+        PairMatching_Question Question1 = new PairMatching_Question(1,1,BasicOperator.PLUS), 
+            Question2 = new PairMatching_Question(1,1, BasicOperator.PLUS);
         PairMatching_Difficulty Difficulty;
-        int CommonAnswer;
+        private int CommonAnswer;
 
         public PairMatching_QuestionPair(int generation_range, PairMatching_Difficulty difficulty)
         {
@@ -250,6 +366,11 @@ namespace TheJBrainer
                     break;
             }
             return result;
+        }
+
+        public int GetCommonAnswer
+        {
+            get { return CommonAnswer; }
         }
 
     }
