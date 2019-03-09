@@ -99,15 +99,18 @@ namespace TheJBrainer
                 Hold_Count++;
                 Holds.Add(tag);
                 btn.BackColor = Color.LightYellow;
+                btn.Enabled = false;
             } 
             if (Hold_Count >= Constants._pm_maxhold)
             {
+                btn.Enabled = true;
                 int res = Check();
                 switch (res)
                 {
                     case 1:
                         foreach(TagStruct h in Holds)
                         {
+                            GameplayPnl.Controls[h.BIndex].Enabled = true;
                             GameplayPnl.Controls[h.BIndex].BackColor = Color.LawnGreen;
                             GameplayPnl.Controls[h.BIndex].Enabled = false;
                         }
@@ -116,6 +119,7 @@ namespace TheJBrainer
                     default:
                         foreach (TagStruct h in Holds)
                         {
+                            GameplayPnl.Controls[h.BIndex].Enabled = true;
                             GameplayPnl.Controls[h.BIndex].BackColor = Color.LightGray;
                         }
                         Lives--;
