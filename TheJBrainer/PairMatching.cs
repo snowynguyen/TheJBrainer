@@ -216,7 +216,8 @@ namespace TheJBrainer
             _pm_gencnt = 10,
             _pm_maxhold = 2,
             _pm_lives = 5,
-            _pm_base_score = 5;
+            _pm_base_score = 5,
+            gametick_length = 20;
     }
 
     public static class Utilities
