@@ -32,7 +32,10 @@
             this.GameplayPnl = new System.Windows.Forms.Panel();
             this.PlayBtn = new System.Windows.Forms.Button();
             this.StatusPnl = new System.Windows.Forms.Panel();
-            this.TimeLeftLbl = new System.Windows.Forms.Label();
+            this.RatingLbl = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TimeLeftPb = new System.Windows.Forms.ProgressBar();
+            this.TimeLeftTxb = new System.Windows.Forms.Label();
             this.ScoreLbl = new System.Windows.Forms.Label();
             this.LevelLbl = new System.Windows.Forms.Label();
             this.LivesLbl = new System.Windows.Forms.Label();
@@ -40,7 +43,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.PMTimer = new System.Windows.Forms.Timer(this.components);
             this.GameplayPnl.SuspendLayout();
             this.StatusPnl.SuspendLayout();
@@ -72,8 +74,10 @@
             // 
             // StatusPnl
             // 
-            this.StatusPnl.Controls.Add(this.progressBar1);
-            this.StatusPnl.Controls.Add(this.TimeLeftLbl);
+            this.StatusPnl.Controls.Add(this.RatingLbl);
+            this.StatusPnl.Controls.Add(this.label5);
+            this.StatusPnl.Controls.Add(this.TimeLeftPb);
+            this.StatusPnl.Controls.Add(this.TimeLeftTxb);
             this.StatusPnl.Controls.Add(this.ScoreLbl);
             this.StatusPnl.Controls.Add(this.LevelLbl);
             this.StatusPnl.Controls.Add(this.LivesLbl);
@@ -88,15 +92,45 @@
             this.StatusPnl.Size = new System.Drawing.Size(838, 75);
             this.StatusPnl.TabIndex = 1;
             // 
-            // TimeLeftLbl
+            // RatingLbl
             // 
-            this.TimeLeftLbl.AutoSize = true;
-            this.TimeLeftLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeLeftLbl.Location = new System.Drawing.Point(711, 26);
-            this.TimeLeftLbl.Name = "TimeLeftLbl";
-            this.TimeLeftLbl.Size = new System.Drawing.Size(36, 25);
-            this.TimeLeftLbl.TabIndex = 1;
-            this.TimeLeftLbl.Text = "oo";
+            this.RatingLbl.AutoSize = true;
+            this.RatingLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RatingLbl.Location = new System.Drawing.Point(530, 26);
+            this.RatingLbl.Name = "RatingLbl";
+            this.RatingLbl.Size = new System.Drawing.Size(36, 25);
+            this.RatingLbl.TabIndex = 7;
+            this.RatingLbl.Text = "---";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(532, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 17);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Rating";
+            // 
+            // TimeLeftPb
+            // 
+            this.TimeLeftPb.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TimeLeftPb.Location = new System.Drawing.Point(0, 52);
+            this.TimeLeftPb.Maximum = 60000;
+            this.TimeLeftPb.Name = "TimeLeftPb";
+            this.TimeLeftPb.Size = new System.Drawing.Size(838, 23);
+            this.TimeLeftPb.Step = 1;
+            this.TimeLeftPb.TabIndex = 2;
+            this.TimeLeftPb.Value = 60000;
+            // 
+            // TimeLeftTxb
+            // 
+            this.TimeLeftTxb.AutoSize = true;
+            this.TimeLeftTxb.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeLeftTxb.Location = new System.Drawing.Point(711, 26);
+            this.TimeLeftTxb.Name = "TimeLeftTxb";
+            this.TimeLeftTxb.Size = new System.Drawing.Size(36, 25);
+            this.TimeLeftTxb.TabIndex = 1;
+            this.TimeLeftTxb.Text = "oo";
             // 
             // ScoreLbl
             // 
@@ -164,17 +198,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Lives";
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 52);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(838, 23);
-            this.progressBar1.TabIndex = 2;
-            // 
             // PMTimer
             // 
             this.PMTimer.Interval = 10;
+            this.PMTimer.Tick += new System.EventHandler(this.PMTimer_Tick);
             // 
             // PairMatching
             // 
@@ -204,7 +231,7 @@
         private System.Windows.Forms.Panel GameplayPnl;
         private System.Windows.Forms.Button PlayBtn;
         private System.Windows.Forms.Panel StatusPnl;
-        private System.Windows.Forms.Label TimeLeftLbl;
+        private System.Windows.Forms.Label TimeLeftTxb;
         private System.Windows.Forms.Label ScoreLbl;
         private System.Windows.Forms.Label LevelLbl;
         private System.Windows.Forms.Label LivesLbl;
@@ -212,7 +239,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar TimeLeftPb;
         private System.Windows.Forms.Timer PMTimer;
+        private System.Windows.Forms.Label RatingLbl;
+        private System.Windows.Forms.Label label5;
     }
 }

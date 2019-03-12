@@ -7,14 +7,21 @@ namespace TheJBrainer
 {
     public partial class PairMatching : Form
     {
+        private DateTime BeginTime = new DateTime(), CurrentTime = new DateTime(), PreviousTime = new DateTime();
+        private int TimeAllowed = 60000;
+        private int TimeLeft = 60000, SecondaryTimer = 0;
+        private bool IsCountingTime = true;
         public List<String> QuestionList = new List<string>();
         private List<int> AnswerList = new List<int>();
         private int GenerationRange, GenerationCount;
-        private int Hold_Count = 0, Score = 0, Lives = Constants._pm_lives;
+        private int Hold_Count = 0, Score = 0, CorrectCount = 0, Rating = 0, Lives = Constants._pm_lives;
         private List<PairMatching_TagStruct> Holds = new List<PairMatching_TagStruct>();
+        
 
-        public PairMatching(int generation_range, int lives, int generation_count)
+        public PairMatching(int generation_range, int lives, int generation_count, int time)
         {
+            TimeAllowed = time;
+            TimeLeft = time;
             GenerationRange = generation_range;
             Lives = lives;
             GenerationCount = generation_count;
@@ -92,6 +99,7 @@ namespace TheJBrainer
         {
             Data_Initialization();
             PlayBtn.Visible = false;
+            PMTimer.Start();
         }
 
         private void MatchBtn_Click(object sender, EventArgs e)
@@ -119,6 +127,8 @@ namespace TheJBrainer
                             GameplayPnl.Controls[h.BIndex].Enabled = false;
                         }
                         Score += Constants._pm_base_score * Constants._pm_maxhold;
+                        CorrectCount++;
+                        if (CorrectCount == GenerationCount) StopGame(1);
                         break;
                     default:
                         foreach (PairMatching_TagStruct h in Holds)
@@ -145,6 +155,37 @@ namespace TheJBrainer
             LivesLbl.Text = Lives.ToString();
         }
 
+        private void PMTimer_Tick(object sender, EventArgs e)
+        {
+            PreviousTime = CurrentTime;
+            CurrentTime = DateTime.Now;
+            int TimeLoss = (CurrentTime - PreviousTime).Milliseconds;
+            if (IsCountingTime) TimeLeft -= TimeLoss;
+            else SecondaryTimer -= TimeLoss;
+            if (SecondaryTimer <= 0)
+            {
+                IsCountingTime = true;
+            }
+            if (TimeLeft <= 0)
+            {
+                TimeLeftTxb.Text = "0.00";
+                TimeLeftPb.Value = 0;
+                StopGame(-1);
+            }
+            else
+            {
+                TimeLeftPb.Maximum = TimeAllowed;
+                TimeLeftPb.Value = TimeLeft;
+                TimeLeftTxb.Text = (TimeLeft / 1000.0).ToString("#0.00");
+            }
+        }
+
+        private void EndGame()
+        {
+            PMTimer.Stop();
+            GameplayPnl.Enabled = false;
+        }
+
         private void PairMatching_SizeChanged(object sender, EventArgs e)
         {
             GameplayPnl.Size = new Size(this.Size.Width - 30, this.Size.Height - 80);
@@ -152,7 +193,7 @@ namespace TheJBrainer
 
         private void StopGame(int result)
         {
-            GameplayPnl.Enabled = false;
+            EndGame();
             switch (result)
             {
                 case 1:
@@ -165,6 +206,8 @@ namespace TheJBrainer
                     MessageBox.Show("Error 404");
                     break;
             }
+            Rating = Convert.ToInt32(Score * (1 + 0.00001 * TimeLeft * Lives / (Lives + 1)) + 2.5 * Lives * (CorrectCount / GenerationCount));
+            RatingLbl.Text = Rating.ToString();
         }
 
         private int Check()

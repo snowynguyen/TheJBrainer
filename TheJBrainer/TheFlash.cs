@@ -32,8 +32,8 @@ namespace TheJBrainer
             CurrentTime = DateTime.Now;
             NewQuestion();
             ShowQuestion();
-            AnswerTxb.Focus();
             FlashTimer.Start();
+            AnswerTxb.Focus();
         }
 
         private void NewQuestion()
@@ -76,6 +76,7 @@ namespace TheJBrainer
         private void ShowQuestion()
         {
             QuestionTxb.Text = Question.GetQuestionAsString();
+            AnswerTxb.Focus();
         }
 
         private void AnswerTxb_KeyUp(object sender, KeyEventArgs e)

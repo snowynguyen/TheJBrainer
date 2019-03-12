@@ -86,7 +86,7 @@
             // 
             this.TimeLeftTxb.BackColor = System.Drawing.Color.Honeydew;
             this.TimeLeftTxb.ForeColor = System.Drawing.Color.Tomato;
-            this.TimeLeftTxb.Location = new System.Drawing.Point(4, 3);
+            this.TimeLeftTxb.Location = new System.Drawing.Point(10, 3);
             this.TimeLeftTxb.Name = "TimeLeftTxb";
             this.TimeLeftTxb.ReadOnly = true;
             this.TimeLeftTxb.Size = new System.Drawing.Size(100, 29);
@@ -125,10 +125,10 @@
             // TimeLeftPb
             // 
             this.TimeLeftPb.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TimeLeftPb.Location = new System.Drawing.Point(110, 0);
+            this.TimeLeftPb.Location = new System.Drawing.Point(112, 0);
             this.TimeLeftPb.Maximum = 20000;
             this.TimeLeftPb.Name = "TimeLeftPb";
-            this.TimeLeftPb.Size = new System.Drawing.Size(461, 32);
+            this.TimeLeftPb.Size = new System.Drawing.Size(459, 32);
             this.TimeLeftPb.Step = 1;
             this.TimeLeftPb.TabIndex = 1;
             this.TimeLeftPb.Value = 20000;
@@ -139,15 +139,15 @@
             this.LivesLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LivesLbl.Location = new System.Drawing.Point(117, 68);
             this.LivesLbl.Name = "LivesLbl";
-            this.LivesLbl.Size = new System.Drawing.Size(23, 25);
+            this.LivesLbl.Size = new System.Drawing.Size(36, 25);
             this.LivesLbl.TabIndex = 7;
-            this.LivesLbl.Text = "5";
+            this.LivesLbl.Text = "oo";
             // 
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(110, 98);
+            this.splitter1.Size = new System.Drawing.Size(112, 98);
             this.splitter1.TabIndex = 0;
             this.splitter1.TabStop = false;
             // 

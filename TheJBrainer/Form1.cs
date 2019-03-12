@@ -21,15 +21,15 @@ namespace TheJBrainer
         {
             if (EasyRB.Checked)
             {
-                PairMatching pm = new PairMatching(20, 5, 8);
+                PairMatching pm = new PairMatching(20, 5, 8, 30000);
             }
             else if (MediumRB.Checked)
             {
-                PairMatching pm = new PairMatching(30, 4, 12);
+                PairMatching pm = new PairMatching(30, 4, 10, 40000);
             }
             else if (HardRB.Checked)
             {
-                PairMatching pm = new PairMatching(50, 3, 16);
+                PairMatching pm = new PairMatching(50, 3, 15, 50000);
             }
         }
 
