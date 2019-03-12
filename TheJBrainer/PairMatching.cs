@@ -9,11 +9,15 @@ namespace TheJBrainer
     {
         public List<String> QuestionList = new List<string>();
         private List<int> AnswerList = new List<int>();
+        private int GenerationRange, GenerationCount;
         private int Hold_Count = 0, Score = 0, Lives = Constants._pm_lives;
-        private List<TagStruct> Holds = new List<TagStruct>();
+        private List<PairMatching_TagStruct> Holds = new List<PairMatching_TagStruct>();
 
-        public PairMatching()
+        public PairMatching(int generation_range, int lives, int generation_count)
         {
+            GenerationRange = generation_range;
+            Lives = lives;
+            GenerationCount = generation_count;
             InitializeComponent();
             this.ShowDialog();
         }
@@ -24,9 +28,9 @@ namespace TheJBrainer
             QuestionList.Clear();
             AnswerList.Clear();
             List<String> tmp = new List<string>();
-            for (int i = 0; i < Constants._pm_gencnt; i++)
+            for (int i = 0; i < GenerationCount; i++)
             {
-                PairMatching_QuestionPair ptmp = new PairMatching_QuestionPair(20, PairMatching_Difficulty.EASY);
+                PairMatching_QuestionPair ptmp = new PairMatching_QuestionPair(GenerationRange, PairMatching_QuestionDifficulty.EASY);
                 tmp = ptmp.GetQuestionPairasStrings();
                 foreach(string s in tmp)
                 {
@@ -50,7 +54,7 @@ namespace TheJBrainer
                     currow += curcol / max_horizontal_count;
                     curcol %= max_horizontal_count;
                 }
-                btn.Tag = new TagStruct(Permute[i], i, AnswerList[Permute[i]]);
+                btn.Tag = new PairMatching_TagStruct(Permute[i], i, AnswerList[Permute[i]]);
                 btn.Text = QuestionList[Permute[i]];
                 btn.Size = new Size(Constants._pm_btnhsize, Constants._pm_btnvsize);
                 btn.Location = new Point(currow * (Constants._pm_btnhsize + Constants._pm_btnhgap), curcol * (Constants._pm_btnvsize + Constants._pm_btnvgap));
@@ -93,7 +97,7 @@ namespace TheJBrainer
         private void MatchBtn_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            TagStruct tag = (TagStruct)btn.Tag;
+            PairMatching_TagStruct tag = (PairMatching_TagStruct)btn.Tag;
             if (Hold_Count < Constants._pm_maxhold)
             {
                 Hold_Count++;
@@ -108,7 +112,7 @@ namespace TheJBrainer
                 switch (res)
                 {
                     case 1:
-                        foreach(TagStruct h in Holds)
+                        foreach(PairMatching_TagStruct h in Holds)
                         {
                             GameplayPnl.Controls[h.BIndex].Enabled = true;
                             GameplayPnl.Controls[h.BIndex].BackColor = Color.LawnGreen;
@@ -117,7 +121,7 @@ namespace TheJBrainer
                         Score += Constants._pm_base_score * Constants._pm_maxhold;
                         break;
                     default:
-                        foreach (TagStruct h in Holds)
+                        foreach (PairMatching_TagStruct h in Holds)
                         {
                             GameplayPnl.Controls[h.BIndex].Enabled = true;
                             GameplayPnl.Controls[h.BIndex].BackColor = Color.LightGray;
@@ -178,10 +182,17 @@ namespace TheJBrainer
         }
     }
 
-    public enum PairMatching_Difficulty
+    public enum PairMatching_QuestionDifficulty
     {
         EASY = 0,
         HARD = 1
+    }
+
+    public enum PairMatching_GameDifficulty
+    {
+        EASY = 0,
+        MEDIUM = 1,
+        HARD = 2
     }
 
     public enum BasicOperator
@@ -192,13 +203,13 @@ namespace TheJBrainer
         DIVIDE = 4
     }
 
-    public struct TagStruct
+    public struct PairMatching_TagStruct
     {
         public int QIndex { get; set; }
         public int BIndex { get; set; }
         public int Answer { get; set; }
 
-        public TagStruct(int qindex, int bindex, int answer)
+        public PairMatching_TagStruct(int qindex, int bindex, int answer)
         {
             QIndex = qindex;
             BIndex = bindex;
@@ -287,10 +298,10 @@ namespace TheJBrainer
     {
         PairMatching_Question Question1 = new PairMatching_Question(1,1,BasicOperator.PLUS), 
             Question2 = new PairMatching_Question(1,1, BasicOperator.PLUS);
-        PairMatching_Difficulty Difficulty;
+        PairMatching_QuestionDifficulty Difficulty;
         private int CommonAnswer;
 
-        public PairMatching_QuestionPair(int generation_range, PairMatching_Difficulty difficulty)
+        public PairMatching_QuestionPair(int generation_range, PairMatching_QuestionDifficulty difficulty)
         {
             Difficulty = difficulty;
             Question1.Operator = (BasicOperator)(Utilities.rd.Next(4) + 1);
@@ -361,10 +372,10 @@ namespace TheJBrainer
             result.Add(Question1.GetQuestionAsString());
             switch (Difficulty)
             {
-                case PairMatching_Difficulty.EASY:
+                case PairMatching_QuestionDifficulty.EASY:
                     result.Add(Question1.GetAnswerAsString());
                     break;
-                case PairMatching_Difficulty.HARD:
+                case PairMatching_QuestionDifficulty.HARD:
                     result.Add(Question2.GetQuestionAsString());
                     break;
                 default:
