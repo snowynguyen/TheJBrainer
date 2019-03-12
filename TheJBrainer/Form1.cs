@@ -21,7 +21,7 @@ namespace TheJBrainer
         {
             if (EasyRB.Checked)
             {
-                PairMatching pm = new PairMatching(20, 5, 10);
+                PairMatching pm = new PairMatching(20, 5, 8);
             }
             else if (MediumRB.Checked)
             {
@@ -29,7 +29,7 @@ namespace TheJBrainer
             }
             else if (HardRB.Checked)
             {
-                PairMatching pm = new PairMatching(50, 3, 15);
+                PairMatching pm = new PairMatching(50, 3, 16);
             }
         }
 
@@ -48,6 +48,7 @@ namespace TheJBrainer
             else if (HardRB.Checked)
             {
                 TheFlash tf = new TheFlash(40, 0.5, 0.3);
+                tf.ShowDialog();
             }
         }
     }

@@ -13,7 +13,7 @@ namespace TheJBrainer
     public partial class TheFlash : Form
     {
         private DateTime BeginTime = new DateTime(), CurrentTime = new DateTime(), PreviousTime = new DateTime();
-        private int TimeAllowed = 15000;
+        private int TimeAllowed = 20000;
         private int TimeLeft = 20000, SecondaryTimer = 0;
         private int GenerationRange;
         private int CorrectCount = 0, Score = 0, IncorrectCount = 0;
@@ -130,7 +130,7 @@ namespace TheJBrainer
             {
                 TimeLeftPb.Maximum = TimeAllowed;
                 TimeLeftPb.Value = TimeLeft;
-                TimeLeftTxb.Text = (TimeLeft / 1000.0).ToString("0.00");
+                TimeLeftTxb.Text = (TimeLeft / 1000.0).ToString("#0.00");
             }
         }
 
@@ -145,7 +145,8 @@ namespace TheJBrainer
             IsCountingTime = true;
             AnswerTxb.Enabled = false;
             FlashTimer.Stop();
-            ScoreLbl.Text = (CorrectCount * 5 - IncorrectCount * 2).ToString();
+            ScoreLbl.Text = (CorrectCount * 5 - IncorrectCount * 2 + GenerationRange).ToString();
+            SubmitBtn.Enabled = false;
         }
     }
 

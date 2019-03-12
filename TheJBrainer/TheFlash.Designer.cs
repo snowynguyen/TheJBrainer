@@ -126,11 +126,12 @@
             // 
             this.TimeLeftPb.Dock = System.Windows.Forms.DockStyle.Top;
             this.TimeLeftPb.Location = new System.Drawing.Point(110, 0);
-            this.TimeLeftPb.Maximum = 1000;
+            this.TimeLeftPb.Maximum = 20000;
             this.TimeLeftPb.Name = "TimeLeftPb";
             this.TimeLeftPb.Size = new System.Drawing.Size(461, 32);
+            this.TimeLeftPb.Step = 1;
             this.TimeLeftPb.TabIndex = 1;
-            this.TimeLeftPb.Value = 10;
+            this.TimeLeftPb.Value = 20000;
             // 
             // LivesLbl
             // 
