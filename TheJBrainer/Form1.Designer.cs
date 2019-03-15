@@ -132,6 +132,7 @@
             textBox1.Location = new System.Drawing.Point(154, 133);
             textBox1.Name = "textBox1";
             textBox1.Size = new System.Drawing.Size(100, 29);
+            textBox1.ReadOnly = true;
             textBox1.TabIndex = 6;
             textBox1.Text = "---";
             textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -154,6 +155,7 @@
             textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             textBox2.ForeColor = System.Drawing.SystemColors.Window;
             textBox2.Location = new System.Drawing.Point(154, 174);
+            textBox2.ReadOnly = true;
             textBox2.Name = "textBox2";
             textBox2.Size = new System.Drawing.Size(100, 29);
             textBox2.TabIndex = 6;
@@ -180,6 +182,7 @@
             textBox3.Location = new System.Drawing.Point(761, 291);
             textBox3.Name = "textBox3";
             textBox3.Size = new System.Drawing.Size(100, 29);
+            textBox3.ReadOnly = true;
             textBox3.TabIndex = 6;
             textBox3.Text = "---";
             textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -192,6 +195,7 @@
             textBox4.Location = new System.Drawing.Point(761, 332);
             textBox4.Name = "textBox4";
             textBox4.Size = new System.Drawing.Size(100, 29);
+            textBox4.ReadOnly = true;
             textBox4.TabIndex = 6;
             textBox4.Text = "---";
             textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
