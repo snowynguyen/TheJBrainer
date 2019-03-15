@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.GameplayPnl = new System.Windows.Forms.Panel();
+            this.SeenBtn = new System.Windows.Forms.Button();
+            this.NewBtn = new System.Windows.Forms.Button();
+            this.PlaygroundPnl = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.LevelTxb = new System.Windows.Forms.TextBox();
+            this.ScoredLbl = new System.Windows.Forms.Label();
             this.LevelLbl = new System.Windows.Forms.Label();
             this.ScoredTxb = new System.Windows.Forms.TextBox();
-            this.ScoredLbl = new System.Windows.Forms.Label();
-            this.PlaygroundPnl = new System.Windows.Forms.Panel();
-            this.NewBtn = new System.Windows.Forms.Button();
-            this.SeenBtn = new System.Windows.Forms.Button();
+            this.LevelTxb = new System.Windows.Forms.TextBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.GameplayPnl.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +54,32 @@
             this.GameplayPnl.Size = new System.Drawing.Size(480, 600);
             this.GameplayPnl.TabIndex = 0;
             // 
+            // SeenBtn
+            // 
+            this.SeenBtn.Location = new System.Drawing.Point(269, 512);
+            this.SeenBtn.Name = "SeenBtn";
+            this.SeenBtn.Size = new System.Drawing.Size(161, 41);
+            this.SeenBtn.TabIndex = 1;
+            this.SeenBtn.Text = "Seen";
+            this.SeenBtn.UseVisualStyleBackColor = true;
+            // 
+            // NewBtn
+            // 
+            this.NewBtn.Location = new System.Drawing.Point(63, 512);
+            this.NewBtn.Name = "NewBtn";
+            this.NewBtn.Size = new System.Drawing.Size(161, 41);
+            this.NewBtn.TabIndex = 1;
+            this.NewBtn.Text = "New";
+            this.NewBtn.UseVisualStyleBackColor = true;
+            this.NewBtn.Click += new System.EventHandler(this.NewBtn_Click);
+            // 
+            // PlaygroundPnl
+            // 
+            this.PlaygroundPnl.Location = new System.Drawing.Point(0, 0);
+            this.PlaygroundPnl.Name = "PlaygroundPnl";
+            this.PlaygroundPnl.Size = new System.Drawing.Size(480, 480);
+            this.PlaygroundPnl.TabIndex = 0;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.ScoredLbl);
@@ -68,28 +94,15 @@
             this.panel1.Size = new System.Drawing.Size(584, 95);
             this.panel1.TabIndex = 1;
             // 
-            // progressBar1
+            // ScoredLbl
             // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 60);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(584, 35);
-            this.progressBar1.TabIndex = 0;
-            // 
-            // LevelTxb
-            // 
-            this.LevelTxb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.LevelTxb.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LevelTxb.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.LevelTxb.Location = new System.Drawing.Point(8, 25);
-            this.LevelTxb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.LevelTxb.Name = "LevelTxb";
-            this.LevelTxb.ReadOnly = true;
-            this.LevelTxb.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.LevelTxb.Size = new System.Drawing.Size(132, 27);
-            this.LevelTxb.TabIndex = 1;
-            this.LevelTxb.Text = "0";
+            this.ScoredLbl.AutoSize = true;
+            this.ScoredLbl.Location = new System.Drawing.Point(435, 0);
+            this.ScoredLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ScoredLbl.Name = "ScoredLbl";
+            this.ScoredLbl.Size = new System.Drawing.Size(55, 20);
+            this.ScoredLbl.TabIndex = 2;
+            this.ScoredLbl.Text = "Scored";
             // 
             // LevelLbl
             // 
@@ -115,40 +128,28 @@
             this.ScoredTxb.TabIndex = 1;
             this.ScoredTxb.Text = "0";
             // 
-            // ScoredLbl
+            // LevelTxb
             // 
-            this.ScoredLbl.AutoSize = true;
-            this.ScoredLbl.Location = new System.Drawing.Point(435, 0);
-            this.ScoredLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ScoredLbl.Name = "ScoredLbl";
-            this.ScoredLbl.Size = new System.Drawing.Size(55, 20);
-            this.ScoredLbl.TabIndex = 2;
-            this.ScoredLbl.Text = "Scored";
+            this.LevelTxb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.LevelTxb.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LevelTxb.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.LevelTxb.Location = new System.Drawing.Point(8, 25);
+            this.LevelTxb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LevelTxb.Name = "LevelTxb";
+            this.LevelTxb.ReadOnly = true;
+            this.LevelTxb.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.LevelTxb.Size = new System.Drawing.Size(132, 27);
+            this.LevelTxb.TabIndex = 1;
+            this.LevelTxb.Text = "0";
             // 
-            // PlaygroundPnl
+            // progressBar1
             // 
-            this.PlaygroundPnl.Location = new System.Drawing.Point(0, 0);
-            this.PlaygroundPnl.Name = "PlaygroundPnl";
-            this.PlaygroundPnl.Size = new System.Drawing.Size(480, 480);
-            this.PlaygroundPnl.TabIndex = 0;
-            // 
-            // NewBtn
-            // 
-            this.NewBtn.Location = new System.Drawing.Point(63, 512);
-            this.NewBtn.Name = "NewBtn";
-            this.NewBtn.Size = new System.Drawing.Size(161, 41);
-            this.NewBtn.TabIndex = 1;
-            this.NewBtn.Text = "NewBtn";
-            this.NewBtn.UseVisualStyleBackColor = true;
-            // 
-            // SeenBtn
-            // 
-            this.SeenBtn.Location = new System.Drawing.Point(269, 512);
-            this.SeenBtn.Name = "SeenBtn";
-            this.SeenBtn.Size = new System.Drawing.Size(161, 41);
-            this.SeenBtn.TabIndex = 1;
-            this.SeenBtn.Text = "button1";
-            this.SeenBtn.UseVisualStyleBackColor = true;
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar1.Location = new System.Drawing.Point(0, 60);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(584, 35);
+            this.progressBar1.TabIndex = 0;
             // 
             // ThankU_Next
             // 
