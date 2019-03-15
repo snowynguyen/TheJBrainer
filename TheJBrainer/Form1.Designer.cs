@@ -36,12 +36,12 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            textBox3 = new System.Windows.Forms.TextBox();
+            textBox4 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -97,17 +97,17 @@
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.Indigo;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.button3.Location = new System.Drawing.Point(22, 209);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(232, 50);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "The Flash";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            button3.BackColor = System.Drawing.Color.Indigo;
+            button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            button3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            button3.ForeColor = System.Drawing.SystemColors.ControlLight;
+            button3.Location = new System.Drawing.Point(22, 209);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(232, 50);
+            button3.TabIndex = 0;
+            button3.Text = "The Flash";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -126,15 +126,15 @@
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox1.Location = new System.Drawing.Point(154, 133);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 29);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.Text = "---";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBox1.BackColor = System.Drawing.Color.DarkSlateBlue;
+            textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            textBox1.ForeColor = System.Drawing.SystemColors.Window;
+            textBox1.Location = new System.Drawing.Point(154, 133);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(100, 29);
+            textBox1.TabIndex = 6;
+            textBox1.Text = "---";
+            textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
@@ -150,15 +150,15 @@
             // 
             // textBox2
             // 
-            this.textBox2.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox2.Location = new System.Drawing.Point(154, 174);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 29);
-            this.textBox2.TabIndex = 6;
-            this.textBox2.Text = "---";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBox2.BackColor = System.Drawing.Color.DarkSlateBlue;
+            textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            textBox2.ForeColor = System.Drawing.SystemColors.Window;
+            textBox2.Location = new System.Drawing.Point(154, 174);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new System.Drawing.Size(100, 29);
+            textBox2.TabIndex = 6;
+            textBox2.Text = "---";
+            textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
             // 
@@ -174,27 +174,27 @@
             // 
             // textBox3
             // 
-            this.textBox3.BackColor = System.Drawing.Color.Navy;
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox3.Location = new System.Drawing.Point(761, 291);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 29);
-            this.textBox3.TabIndex = 6;
-            this.textBox3.Text = "---";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBox3.BackColor = System.Drawing.Color.Navy;
+            textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            textBox3.ForeColor = System.Drawing.SystemColors.Window;
+            textBox3.Location = new System.Drawing.Point(761, 291);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new System.Drawing.Size(100, 29);
+            textBox3.TabIndex = 6;
+            textBox3.Text = "---";
+            textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBox4
             // 
-            this.textBox4.BackColor = System.Drawing.Color.Navy;
-            this.textBox4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.SystemColors.Window;
-            this.textBox4.Location = new System.Drawing.Point(761, 332);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 29);
-            this.textBox4.TabIndex = 6;
-            this.textBox4.Text = "---";
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            textBox4.BackColor = System.Drawing.Color.Navy;
+            textBox4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            textBox4.ForeColor = System.Drawing.SystemColors.Window;
+            textBox4.Location = new System.Drawing.Point(761, 332);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new System.Drawing.Size(100, 29);
+            textBox4.TabIndex = 6;
+            textBox4.Text = "---";
+            textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label3
             // 
@@ -231,10 +231,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(textBox4);
+            this.Controls.Add(textBox3);
+            this.Controls.Add(textBox2);
+            this.Controls.Add(textBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.panel2);
@@ -262,12 +262,12 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.TextBox textBox1;
+        static private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
+        static private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        static private System.Windows.Forms.TextBox textBox3;
+        static private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
     }

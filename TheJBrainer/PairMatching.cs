@@ -93,6 +93,11 @@ namespace TheJBrainer
         {
             PlayBtn.Visible = true;
             
+        }        
+
+        private void PairMatching_FormClosed(object sender, FormClosingEventArgs e)
+        {
+            Form1.PairMatching_GameClosed(sender, e, Rating);
         }
 
         private void PlayBtn_Click(object sender, EventArgs e)

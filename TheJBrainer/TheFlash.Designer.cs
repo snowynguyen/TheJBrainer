@@ -250,6 +250,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "TheFlash";
             this.Text = "TheFlash";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TheFlash_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

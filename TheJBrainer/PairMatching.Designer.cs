@@ -217,6 +217,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PairMatching";
             this.Text = "PairMatching";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PairMatching_FormClosed);
             this.Load += new System.EventHandler(this.PairMatching_Load);
             this.SizeChanged += new System.EventHandler(this.PairMatching_SizeChanged);
             this.GameplayPnl.ResumeLayout(false);

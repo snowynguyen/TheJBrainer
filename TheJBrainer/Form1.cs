@@ -17,12 +17,11 @@ namespace TheJBrainer
         int diffcnt = 0;
         List<string> dstr = new List<string>() {"Easy", "Medium", "Hard" };
         List<Color> dclr = new List<Color>() { Color.DarkSlateGray, Color.Goldenrod, Color.LightCoral };
+        static List<int> pm_scores = new List<int>(), tf_scores = new List<int>();
 
         public Form1()
         {
             InitializeComponent();
-            string path = Application.StartupPath;
-            this.BackgroundImage = new Bitmap(path + @"\Resources\TitleScreen.png");
         }
 
         /*
@@ -154,6 +153,34 @@ namespace TheJBrainer
             diffcnt %= 3;
             button4.Text = dstr[diffcnt];
             button4.BackColor = dclr[diffcnt];
+        }
+
+        static public void PairMatching_GameClosed(object sender, FormClosingEventArgs e, int rating)
+        {
+            pm_scores.Add(rating);
+            int max = 0, average = 0;
+            foreach (int score in pm_scores)
+            {
+                max = Math.Max(max, score);
+                average += score;
+            }
+            average /= pm_scores.Count;
+            textBox3.Text = max.ToString();
+            textBox4.Text = average.ToString();
+        }
+
+        static public void TheFlash_FormClosing(object sender, FormClosingEventArgs e, int rating)
+        {
+            tf_scores.Add(rating);
+            int max = 0, average = 0;
+            foreach (int score in tf_scores)
+            {
+                max = Math.Max(max, score);
+                average += score;
+            }
+            average /= tf_scores.Count;
+            textBox1.Text = max.ToString();
+            textBox2.Text = average.ToString();
         }
     }
 }

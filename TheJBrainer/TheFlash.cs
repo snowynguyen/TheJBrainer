@@ -73,6 +73,11 @@ namespace TheJBrainer
             NewQuestion();
         }
 
+        private void TheFlash_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form1.TheFlash_FormClosing(sender, e, (CorrectCount * 5 - IncorrectCount * 2 + GenerationRange));
+        }
+
         private void ShowQuestion()
         {
             QuestionTxb.Text = Question.GetQuestionAsString();
