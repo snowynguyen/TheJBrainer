@@ -142,6 +142,7 @@
             this.LivesLbl.Size = new System.Drawing.Size(36, 25);
             this.LivesLbl.TabIndex = 7;
             this.LivesLbl.Text = "oo";
+            this.LivesLbl.Visible = false;
             // 
             // splitter1
             // 
@@ -186,6 +187,7 @@
             this.label1.Size = new System.Drawing.Size(48, 21);
             this.label1.TabIndex = 4;
             this.label1.Text = "Lives";
+            this.label1.Visible = false;
             // 
             // label2
             // 
