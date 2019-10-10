@@ -133,11 +133,11 @@ namespace TheJBrainer
             switch (diffcnt)
             {
                 case 0:
-                    tf = new TheFlash(15, 0.25, 0.1);
+                    tf = new TheFlash(15, 0.25, 0.075);
                     tf.ShowDialog();
                     break;
                 case 1:
-                    tf = new TheFlash(25, 0.3, 0.2);
+                    tf = new TheFlash(25, 0.3333, 0.225);
                     tf.ShowDialog();
                     break;
                 case 2:
@@ -157,8 +157,9 @@ namespace TheJBrainer
 
         static public void PairMatching_GameClosed(object sender, FormClosingEventArgs e, int rating)
         {
+            if (rating == Constants.UNDEFINED) return;
             pm_scores.Add(rating);
-            int max = 0, average = 0;
+            int max = -1000, average = 0;
             foreach (int score in pm_scores)
             {
                 max = Math.Max(max, score);
@@ -171,8 +172,9 @@ namespace TheJBrainer
 
         static public void TheFlash_FormClosing(object sender, FormClosingEventArgs e, int rating)
         {
+            if (rating == Constants.UNDEFINED) return;
             tf_scores.Add(rating);
-            int max = 0, average = 0;
+            int max = -1000, average = 0;
             foreach (int score in tf_scores)
             {
                 max = Math.Max(max, score);

@@ -48,6 +48,8 @@
             this.FlashTimer = new System.Windows.Forms.Timer(this.components);
             this.SubmitBtn = new System.Windows.Forms.Button();
             this.CorrectAnswerTxb = new System.Windows.Forms.TextBox();
+            this.FlashToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.startFlashBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,6 +93,7 @@
             this.TimeLeftTxb.ReadOnly = true;
             this.TimeLeftTxb.Size = new System.Drawing.Size(100, 29);
             this.TimeLeftTxb.TabIndex = 5;
+            this.FlashToolTip.SetToolTip(this.TimeLeftTxb, "Time left");
             // 
             // IncorrectCountTxb
             // 
@@ -124,7 +127,8 @@
             // 
             // TimeLeftPb
             // 
-            this.TimeLeftPb.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TimeLeftPb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TimeLeftPb.Location = new System.Drawing.Point(112, 0);
             this.TimeLeftPb.Maximum = 20000;
             this.TimeLeftPb.Name = "TimeLeftPb";
@@ -200,19 +204,29 @@
             // 
             // QuestionTxb
             // 
+            this.QuestionTxb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.QuestionTxb.Location = new System.Drawing.Point(10, 12);
             this.QuestionTxb.Name = "QuestionTxb";
             this.QuestionTxb.ReadOnly = true;
             this.QuestionTxb.Size = new System.Drawing.Size(549, 29);
             this.QuestionTxb.TabIndex = 3;
+            this.FlashToolTip.SetToolTip(this.QuestionTxb, "Question");
+            this.QuestionTxb.Visible = false;
             // 
             // AnswerTxb
             // 
+            this.AnswerTxb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AnswerTxb.BackColor = System.Drawing.Color.White;
             this.AnswerTxb.Location = new System.Drawing.Point(10, 47);
             this.AnswerTxb.Name = "AnswerTxb";
-            this.AnswerTxb.Size = new System.Drawing.Size(549, 29);
+            this.AnswerTxb.Size = new System.Drawing.Size(433, 29);
             this.AnswerTxb.TabIndex = 1;
+            this.FlashToolTip.SetToolTip(this.AnswerTxb, "Type your answer here");
+            this.AnswerTxb.Visible = false;
             this.AnswerTxb.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AnswerTxb_KeyUp);
             // 
             // FlashTimer
@@ -222,27 +236,47 @@
             // 
             // SubmitBtn
             // 
-            this.SubmitBtn.Location = new System.Drawing.Point(449, 82);
+            this.SubmitBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SubmitBtn.Location = new System.Drawing.Point(449, 47);
             this.SubmitBtn.Name = "SubmitBtn";
             this.SubmitBtn.Size = new System.Drawing.Size(110, 34);
             this.SubmitBtn.TabIndex = 2;
             this.SubmitBtn.Text = "Submit";
             this.SubmitBtn.UseVisualStyleBackColor = true;
+            this.SubmitBtn.Visible = false;
             this.SubmitBtn.Click += new System.EventHandler(this.SubmitBtn_Click);
             // 
             // CorrectAnswerTxb
             // 
+            this.CorrectAnswerTxb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CorrectAnswerTxb.Location = new System.Drawing.Point(10, 84);
             this.CorrectAnswerTxb.Name = "CorrectAnswerTxb";
             this.CorrectAnswerTxb.ReadOnly = true;
-            this.CorrectAnswerTxb.Size = new System.Drawing.Size(433, 29);
+            this.CorrectAnswerTxb.Size = new System.Drawing.Size(549, 29);
             this.CorrectAnswerTxb.TabIndex = 4;
+            this.FlashToolTip.SetToolTip(this.CorrectAnswerTxb, "The correct answer will appear here");
+            this.CorrectAnswerTxb.Visible = false;
+            // 
+            // startFlashBtn
+            // 
+            this.startFlashBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.startFlashBtn.Location = new System.Drawing.Point(240, 49);
+            this.startFlashBtn.MaximumSize = new System.Drawing.Size(90, 32);
+            this.startFlashBtn.Name = "startFlashBtn";
+            this.startFlashBtn.Size = new System.Drawing.Size(90, 32);
+            this.startFlashBtn.TabIndex = 5;
+            this.startFlashBtn.Text = "Play";
+            this.startFlashBtn.UseVisualStyleBackColor = true;
+            this.startFlashBtn.Click += new System.EventHandler(this.startFlashBtn_Click);
             // 
             // TheFlash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 220);
+            this.Controls.Add(this.startFlashBtn);
             this.Controls.Add(this.CorrectAnswerTxb);
             this.Controls.Add(this.SubmitBtn);
             this.Controls.Add(this.AnswerTxb);
@@ -281,5 +315,7 @@
         private System.Windows.Forms.Label CorrectCountTxb;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolTip FlashToolTip;
+        private System.Windows.Forms.Button startFlashBtn;
     }
 }

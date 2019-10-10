@@ -14,7 +14,7 @@ namespace TheJBrainer
         public List<String> QuestionList = new List<string>();
         private List<int> AnswerList = new List<int>();
         private int GenerationRange, GenerationCount;
-        private int Hold_Count = 0, Score = 0, CorrectCount = 0, Rating = 0, Lives = Constants._pm_lives;
+        private int Hold_Count = 0, Score = 0, CorrectCount = 0, Rating = Constants.UNDEFINED, Lives = Constants._pm_lives;
         private List<PairMatching_TagStruct> Holds = new List<PairMatching_TagStruct>();
         
 
@@ -276,7 +276,8 @@ namespace TheJBrainer
             _pm_maxhold = 2,
             _pm_lives = 5,
             _pm_base_score = 5,
-            gametick_length = 20;
+            gametick_length = 20,
+            UNDEFINED = -1000000007;
     }
 
     public static class Utilities
