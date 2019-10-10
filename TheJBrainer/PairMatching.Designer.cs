@@ -28,10 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.GameplayPnl = new System.Windows.Forms.Panel();
             this.PlayBtn = new System.Windows.Forms.Button();
             this.StatusPnl = new System.Windows.Forms.Panel();
-            this.TimeLeftLbl = new System.Windows.Forms.Label();
+            this.RatingLbl = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TimeLeftPb = new System.Windows.Forms.ProgressBar();
+            this.TimeLeftTxb = new System.Windows.Forms.Label();
             this.ScoreLbl = new System.Windows.Forms.Label();
             this.LevelLbl = new System.Windows.Forms.Label();
             this.LivesLbl = new System.Windows.Forms.Label();
@@ -39,6 +43,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.PMTimer = new System.Windows.Forms.Timer(this.components);
             this.GameplayPnl.SuspendLayout();
             this.StatusPnl.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +54,7 @@
             this.GameplayPnl.AutoScroll = true;
             this.GameplayPnl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.GameplayPnl.Controls.Add(this.PlayBtn);
-            this.GameplayPnl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GameplayPnl.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
             this.GameplayPnl.Location = new System.Drawing.Point(14, 16);
             this.GameplayPnl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.GameplayPnl.Name = "GameplayPnl";
@@ -69,7 +74,10 @@
             // 
             // StatusPnl
             // 
-            this.StatusPnl.Controls.Add(this.TimeLeftLbl);
+            this.StatusPnl.Controls.Add(this.RatingLbl);
+            this.StatusPnl.Controls.Add(this.label5);
+            this.StatusPnl.Controls.Add(this.TimeLeftPb);
+            this.StatusPnl.Controls.Add(this.TimeLeftTxb);
             this.StatusPnl.Controls.Add(this.ScoreLbl);
             this.StatusPnl.Controls.Add(this.LevelLbl);
             this.StatusPnl.Controls.Add(this.LivesLbl);
@@ -78,27 +86,57 @@
             this.StatusPnl.Controls.Add(this.label2);
             this.StatusPnl.Controls.Add(this.label1);
             this.StatusPnl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.StatusPnl.Location = new System.Drawing.Point(0, 509);
+            this.StatusPnl.Location = new System.Drawing.Point(0, 501);
             this.StatusPnl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.StatusPnl.Name = "StatusPnl";
-            this.StatusPnl.Size = new System.Drawing.Size(838, 68);
+            this.StatusPnl.Size = new System.Drawing.Size(838, 75);
             this.StatusPnl.TabIndex = 1;
             // 
-            // TimeLeftLbl
+            // RatingLbl
             // 
-            this.TimeLeftLbl.AutoSize = true;
-            this.TimeLeftLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeLeftLbl.Location = new System.Drawing.Point(711, 33);
-            this.TimeLeftLbl.Name = "TimeLeftLbl";
-            this.TimeLeftLbl.Size = new System.Drawing.Size(36, 25);
-            this.TimeLeftLbl.TabIndex = 1;
-            this.TimeLeftLbl.Text = "oo";
+            this.RatingLbl.AutoSize = true;
+            this.RatingLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RatingLbl.Location = new System.Drawing.Point(530, 26);
+            this.RatingLbl.Name = "RatingLbl";
+            this.RatingLbl.Size = new System.Drawing.Size(36, 25);
+            this.RatingLbl.TabIndex = 7;
+            this.RatingLbl.Text = "---";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(532, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 17);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Rating";
+            // 
+            // TimeLeftPb
+            // 
+            this.TimeLeftPb.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TimeLeftPb.Location = new System.Drawing.Point(0, 52);
+            this.TimeLeftPb.Maximum = 60000;
+            this.TimeLeftPb.Name = "TimeLeftPb";
+            this.TimeLeftPb.Size = new System.Drawing.Size(838, 23);
+            this.TimeLeftPb.Step = 1;
+            this.TimeLeftPb.TabIndex = 2;
+            this.TimeLeftPb.Value = 60000;
+            // 
+            // TimeLeftTxb
+            // 
+            this.TimeLeftTxb.AutoSize = true;
+            this.TimeLeftTxb.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeLeftTxb.Location = new System.Drawing.Point(711, 26);
+            this.TimeLeftTxb.Name = "TimeLeftTxb";
+            this.TimeLeftTxb.Size = new System.Drawing.Size(36, 25);
+            this.TimeLeftTxb.TabIndex = 1;
+            this.TimeLeftTxb.Text = "oo";
             // 
             // ScoreLbl
             // 
             this.ScoreLbl.AutoSize = true;
             this.ScoreLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ScoreLbl.Location = new System.Drawing.Point(387, 33);
+            this.ScoreLbl.Location = new System.Drawing.Point(387, 26);
             this.ScoreLbl.Name = "ScoreLbl";
             this.ScoreLbl.Size = new System.Drawing.Size(23, 25);
             this.ScoreLbl.TabIndex = 1;
@@ -108,7 +146,7 @@
             // 
             this.LevelLbl.AutoSize = true;
             this.LevelLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LevelLbl.Location = new System.Drawing.Point(166, 33);
+            this.LevelLbl.Location = new System.Drawing.Point(166, 26);
             this.LevelLbl.Name = "LevelLbl";
             this.LevelLbl.Size = new System.Drawing.Size(23, 25);
             this.LevelLbl.TabIndex = 1;
@@ -118,7 +156,7 @@
             // 
             this.LivesLbl.AutoSize = true;
             this.LivesLbl.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LivesLbl.Location = new System.Drawing.Point(12, 33);
+            this.LivesLbl.Location = new System.Drawing.Point(12, 26);
             this.LivesLbl.Name = "LivesLbl";
             this.LivesLbl.Size = new System.Drawing.Size(23, 25);
             this.LivesLbl.TabIndex = 1;
@@ -160,13 +198,18 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Lives";
             // 
+            // PMTimer
+            // 
+            this.PMTimer.Interval = 10;
+            this.PMTimer.Tick += new System.EventHandler(this.PMTimer_Tick);
+            // 
             // PairMatching
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(838, 577);
+            this.ClientSize = new System.Drawing.Size(838, 576);
             this.Controls.Add(this.StatusPnl);
             this.Controls.Add(this.GameplayPnl);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -174,6 +217,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PairMatching";
             this.Text = "PairMatching";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PairMatching_FormClosed);
             this.Load += new System.EventHandler(this.PairMatching_Load);
             this.SizeChanged += new System.EventHandler(this.PairMatching_SizeChanged);
             this.GameplayPnl.ResumeLayout(false);
@@ -188,7 +232,7 @@
         private System.Windows.Forms.Panel GameplayPnl;
         private System.Windows.Forms.Button PlayBtn;
         private System.Windows.Forms.Panel StatusPnl;
-        private System.Windows.Forms.Label TimeLeftLbl;
+        private System.Windows.Forms.Label TimeLeftTxb;
         private System.Windows.Forms.Label ScoreLbl;
         private System.Windows.Forms.Label LevelLbl;
         private System.Windows.Forms.Label LivesLbl;
@@ -196,5 +240,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ProgressBar TimeLeftPb;
+        private System.Windows.Forms.Timer PMTimer;
+        private System.Windows.Forms.Label RatingLbl;
+        private System.Windows.Forms.Label label5;
     }
 }

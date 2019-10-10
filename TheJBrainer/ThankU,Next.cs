@@ -16,5 +16,10 @@ namespace TheJBrainer
         {
             InitializeComponent();
         }
+
+        private void NewBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

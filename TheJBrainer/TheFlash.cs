@@ -13,10 +13,11 @@ namespace TheJBrainer
     public partial class TheFlash : Form
     {
         private DateTime BeginTime = new DateTime(), CurrentTime = new DateTime(), PreviousTime = new DateTime();
-        private int TimeAllowed = 15000;
+        private int TimeAllowed = 20000;
         private int TimeLeft = 20000, SecondaryTimer = 0;
         private int GenerationRange;
-        private int CorrectCount = 0, Score = 0, IncorrectCount = 0;
+        private int CorrectCount = 0, Score = Constants.UNDEFINED, IncorrectCount = 0;
+        private double CorrectAnswerGain = 0, IncorrectAnswerLoss = 0;
         private double Difficulty, NegativeChance, Drain;
         private FlashQuestion Question;
         private bool IsCountingTime = true;
@@ -28,12 +29,8 @@ namespace TheJBrainer
             Difficulty = difficulty;
             NegativeChance = negative_chance;
             Drain = 1;
-            BeginTime = DateTime.Now;
-            CurrentTime = DateTime.Now;
-            NewQuestion();
-            ShowQuestion();
-            AnswerTxb.Focus();
-            FlashTimer.Start();
+            CorrectAnswerGain = 5.0 * (90.0 + GenerationRange * 1.8) / 100.0;
+            IncorrectAnswerLoss = CorrectAnswerGain * 0.4;
         }
 
         private void NewQuestion()
@@ -73,9 +70,30 @@ namespace TheJBrainer
             NewQuestion();
         }
 
+        private void TheFlash_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form1.TheFlash_FormClosing(sender, e, Score);
+        }
+
+        private void startFlashBtn_Click(object sender, EventArgs e)
+        {
+            BeginTime = DateTime.Now;
+            CurrentTime = DateTime.Now;
+            QuestionTxb.Visible = true;
+            AnswerTxb.Visible = true;
+            SubmitBtn.Visible = true;
+            NewQuestion();
+            ShowQuestion();
+            Score = 0;
+            startFlashBtn.Visible = false;
+            FlashTimer.Start();
+            AnswerTxb.Focus();
+        }
+
         private void ShowQuestion()
         {
             QuestionTxb.Text = Question.GetQuestionAsString();
+            AnswerTxb.Focus();
         }
 
         private void AnswerTxb_KeyUp(object sender, KeyEventArgs e)
@@ -91,20 +109,25 @@ namespace TheJBrainer
             Difficulty *= (0.9 + 0.1 * Utilities.rd.NextDouble());
             GenerationRange += Utilities.rd.Next(-1, 1);
             TimeLeft -= 1000;
+            Score -= (int)IncorrectAnswerLoss;
             IncorrectCount++;
             IncorrectCountTxb.Text = IncorrectCount.ToString();
+            CorrectAnswerTxb.Visible = true;
             CorrectAnswerTxb.BackColor = Color.Salmon;
         }
 
         private void AcceptAnswer()
         {
             CorrectCount++;
+            Score += (int)CorrectAnswerGain;
+            CorrectAnswerGain *= 1.02;
             CorrectCountTxb.Text = CorrectCount.ToString();
             Difficulty = 1 - ((1 - Difficulty) * (Utilities.rd.NextDouble() * 0.06 + 0.92));
-            GenerationRange += Utilities.rd.Next(0, 2);
-            Drain *= 0.99;
+            GenerationRange += Utilities.rd.Next(1, 1 + GenerationRange / 16 + CorrectCount / 4);
             TimeLeft += Convert.ToInt32(1500.0 * Drain);
             TimeAllowed += Convert.ToInt32(1500.0 * Drain);
+            Drain *= 0.988;
+            CorrectAnswerTxb.Visible = true;
             CorrectAnswerTxb.BackColor = Color.Lime;
         }
 
@@ -118,6 +141,7 @@ namespace TheJBrainer
             if (SecondaryTimer <= 0)
             {
                 IsCountingTime = true;
+                CorrectAnswerTxb.Visible = false;
                 ShowQuestion();
             }
             if (TimeLeft <= 0)
@@ -130,7 +154,7 @@ namespace TheJBrainer
             {
                 TimeLeftPb.Maximum = TimeAllowed;
                 TimeLeftPb.Value = TimeLeft;
-                TimeLeftTxb.Text = (TimeLeft / 1000.0).ToString("0.00");
+                TimeLeftTxb.Text = (TimeLeft / 1000.0).ToString("#0.00");
             }
         }
 
@@ -141,11 +165,13 @@ namespace TheJBrainer
 
         private void EndGame()
         {
+            ShowAnswer();
             SecondaryTimer = Int32.MaxValue;
             IsCountingTime = true;
             AnswerTxb.Enabled = false;
             FlashTimer.Stop();
-            ScoreLbl.Text = (CorrectCount * 5 - IncorrectCount * 2).ToString();
+            ScoreLbl.Text = Score.ToString();
+            SubmitBtn.Enabled = false;
         }
     }
 
